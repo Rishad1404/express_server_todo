@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { pool } from "../../config/db";
 import { todoServices } from "./todo.service";
 
 
@@ -63,7 +62,7 @@ const updateTodo= async (req:Request, res:Response) => {
   const { title, completed } = req.body;
 
   try {
-    const result = await todoServices.updateTodo(title,completed,req.params.id!);
+    const result = await todoServices.updateTodo(req.body,req.params.id!);
 
     if (result.rows.length === 0) {
       return res.status(404).json({ error: "Todo not found" });
